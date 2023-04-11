@@ -1,0 +1,3 @@
+Open questions:
+
+  - what is the complexity of concert-tickets-2.cc?
