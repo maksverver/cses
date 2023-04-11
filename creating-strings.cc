@@ -13,12 +13,6 @@
 
 #include <bits/stdc++.h>
 
-#if __has_include("dump.h")
-#include "dump.h"
-#else
-#define DUMP(...)
-#endif
-
 using namespace std;
 
 #define FOR(i,a,b) for (int i = int(a), _end_##i = int(b); i < _end_##i; ++i)
