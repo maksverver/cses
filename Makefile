@@ -4,7 +4,7 @@ INTRODUCTORY_PROBLEMS=weird-algorithm missing-number repetitions increasing-arra
 
 TREE_ALGORITHM_PROBLEMS=tree-diameter tree-distances-1 tree-distances-2
 
-SORTING_AND_SEARCHING_PROBLEMS=distinct-numbers apartments ferris-wheel concert-tickets concert-tickets-2 restaurant-customers movie-festival sum-of-two-values maximum-subarray-sum
+SORTING_AND_SEARCHING_PROBLEMS=distinct-numbers apartments ferris-wheel concert-tickets concert-tickets-2 restaurant-customers movie-festival sum-of-two-values maximum-subarray-sum stick-lengths missing-coin-sum collecting-numbers collecting-numbers-2 playlist towers
 
 PROBLEMS=$(INTRODUCTORY_PROBLEMS) $(TREE_ALGORITHM_PROBLEMS) $(SORTING_AND_SEARCHING_PROBLEMS)
 
