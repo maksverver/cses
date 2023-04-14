@@ -19,6 +19,8 @@
 // element. At each iteration, we move either the first pointer forward or the
 // second pointer backward, until we find a solution or the range is closed,
 // for an O(N) solution + O(N log N) for sorting.
+//
+// See also: Sum of Three Values, Sum of Four Values, Subarray Sums I
 
 #include <bits/stdc++.h>
 

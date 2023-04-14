@@ -20,19 +20,15 @@ ostream &operator<<(ostream &os, const vector<T> &v) {
   return os;
 }
 
-void SolveCase() {
-  int N = 0;
-  cin >> N;
-  vector<int> A(N);
-  for (int &i : A) cin >> i;
-  cout << -1 << '\n';
-}
-
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(
   ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
-  int T = 0;
-  cin >> T;
-  while(T--) SolveCase();
+  int N = 0;
+  cin >> N;
+  vector<int> A(N);
+  for (auto &a : A) cin >> a;
+
+  int answer = -1;
+  cout << answer << '\n';
 }

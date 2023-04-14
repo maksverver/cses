@@ -9,7 +9,7 @@ fi
 
 name=$1
 
-if ! echo "$name" | grep -Eq '^[a-z][a-z0-9_-]*$'
+if ! echo "$name" | grep -Eq '^[a-zA-Z][a-zA-Z0-9_-]*$'
 then
   echo "Invalid name!"
   exit 1
