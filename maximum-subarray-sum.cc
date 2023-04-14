@@ -1,21 +1,31 @@
 // Maximum Subarray Sum
 // https://cses.fi/problemset/task/1643
 //
-// Given an array of integers, find the maximum substring sum.
+// Given an array of integers, find the maximum subarray sum.
 //
 // Solution:
-// Precalculate C[j] = sum of A[i..j). Then the sum of a substring A[i..j) can
-// be calculated as C[j] - C[i]. This means for a fixed `i`, we want to use the
-// value of j where C[j] is maximum. We only need to loop over possible `i`s
-// from high to low, and we can track the maximum C[j] for j >= i as we go,
-// and keep the maximum of the calculated differences.
+// Let's call P[i] = A[1] + A[2] + ... + A[i - 1] (i.e. the sum of prefix of
+// length i). Then the sum of a subarray A[i..j] = P[j] - P[i - 1]. It's easy
+// to go through the array from left to right and keep track of the current
+// prefix sum (P[j]) then to maximize the sum P[j] - P[i - 1] we should use the
+// the minimum value of P[i - 1] (1 ≤ i ≤ j): it's easy to track this minimum
+// too.
+//
+// This leads to an O(N) time O(1) space algorithm.
 //
 // Note: slightly tricky is that we are required to give the sum of a nonempty
 // substring, so we cannot use 0 as the default answer, since if all elements
 // of A are negative, A will be negative too!
+//
+// See also maximum-subarray-sum-3.cc for slightly simpler implementation, or
+// maximum-subarray-sum-2-too-complicated.cc for one that's unnecessarily
+// complex.
+//
+// See also maximum-subarray-sum-II.cc for a variation of this problem.
 
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <limits>
 
 using namespace std;
 
@@ -28,18 +38,15 @@ int main() {
 
   int N = 0;
   cin >> N;
-  vector<int> A(N);
-  for (int &i : A) cin >> i;
 
-  // C[i] = sum of A[0..i)
-  vector<int64_t> C(N + 1);
-  REP(i, N) C[i + 1] = C[i] + A[i];
-
-  int64_t answer = A[N - 1];
-  int64_t max_c = C[N];
-  for (int i = N - 1; i >= 0; --i) {
-    answer = std::max(answer, max_c - C[i]);
-    max_c = std::max(max_c, C[i]);
+  int64_t answer = numeric_limits<int64_t>::min();
+  int64_t prefix_sum = 0, min_prefix_sum = 0;
+  while (N-- > 0) {
+    int x = 0;
+    cin >> x;
+    prefix_sum += x;
+    answer = std::max(answer, prefix_sum - min_prefix_sum);
+    min_prefix_sum = std::min(min_prefix_sum, prefix_sum);
   }
   cout << answer << endl;
 }
