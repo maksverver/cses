@@ -1,5 +1,3 @@
-CXXFLAGS=-std=c++20 -Wall -Og -Wno-sign-compare
-
 INTRODUCTORY_PROBLEMS=weird-algorithm missing-number repetitions increasing-array permutations number-spiral two-knights two-sets bit-strings trailing-zeros coin-piles palindrome-reorder gray-code tower-of-hanoi creating-strings apple-division chessboard-and-queens digit-queries grid-paths
 
 TREE_ALGORITHM_PROBLEMS=tree-diameter tree-distances-I tree-distances-II
@@ -8,7 +6,18 @@ SORTING_AND_SEARCHING_PROBLEMS=distinct-numbers apartments ferris-wheel concert-
 
 PROBLEMS=$(INTRODUCTORY_PROBLEMS) $(TREE_ALGORITHM_PROBLEMS) $(SORTING_AND_SEARCHING_PROBLEMS)
 
-all: $(PROBLEMS)
+CXXFLAGS=-std=c++20 -Wall -Og -Wno-sign-compare
+
+PRECOMPILED_HEADERS=pch/bits/stdc++.h.gch
+
+all: $(PRECOMPILED_HEADERS) $(PROBLEMS)
+
+pch/bits/stdc++.h.gch: /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/stdc++.h
+	mkdir -p pch/bits/
+	g++ -x c++-header $(CXXFLAGS) -o $@ -c $<
+
+%: %.cc $(PRECOMPILED_HEADERS)
+	$(CXX) $(CXXFLAGS) -I pch -Winvalid-pch -o $@ $< $(LDFLAGS) $(LDLIBS)
 
 clean:
-	rm -f $(PROBLEMS)
+	rm -f $(PROBLEMS) $(PRECOMPILED_HEADERS)
