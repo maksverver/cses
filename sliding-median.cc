@@ -1,5 +1,7 @@
 // Sliding Median
 // https://cses.fi/problemset/task/1076
+//
+// See also: sliding-cost.cc
 
 #include <bits/stdc++.h>
 

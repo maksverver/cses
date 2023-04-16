@@ -24,4 +24,5 @@ fi
 
 cp -n template.cc "$source"
 
-sed -e "/^SORTING_AND_SEARCHING_PROBLEMS=/s/$/ $name/" -i Makefile
+# Update the section name after completing a section.
+sed -e "/^DYNAMIC_PROGRAMMING_PROBLEMS=/s/$/ $name/" -i Makefile

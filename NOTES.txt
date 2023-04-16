@@ -2,9 +2,6 @@ Open questions:
 
   - what is the complexity of concert-tickets-2.cc?
 
-  - maximum-subarray-sum-1.cc and maximum-subarray-sum-3.cc
-    are extremely similar! can I explain the relation somehow?
-
 TODO:
 
   - implement min-stack / min-queue and add them to code library
