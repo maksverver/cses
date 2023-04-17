@@ -1,5 +1,6 @@
 #ifndef DUMP_H_INCLUDED
 
+#include <cstdlib>
 #include <iostream>
 #include <tuple>
 
@@ -13,6 +14,14 @@
 #define FOR_EACH(macro, ...) __VA_OPT__(EXPAND(FOR_EACH_HELPER(macro, __VA_ARGS__)))
 #define FOR_EACH_HELPER(macro, a1, ...) macro(a1) __VA_OPT__(FOR_EACH_AGAIN PARENS (macro, __VA_ARGS__))
 #define FOR_EACH_AGAIN() FOR_EACH_HELPER
+
+// env DUMP=0 disables debug dumping
+__attribute__((__unused__))
+static bool dump_enabled() {
+  static char *var = getenv("DUMP");
+  static bool enabled = !var || var[0] != '0' || var[1] != '\0';
+  return enabled;
+}
 
 // DUMP(x, y, z) dumps the values of expressions x, y and z to std::cerr.
 //
@@ -31,6 +40,6 @@
 //
 // where 10 is the line number of the DUMP call.
 #define DUMP_ARG(x) << " " #x "=" << (x)
-#define DUMP(...) std::cerr << __LINE__ << ":" FOR_EACH(DUMP_ARG, __VA_ARGS__) << std::endl;
+#define DUMP(...) (dump_enabled() ? std::cerr << __LINE__ << ":" FOR_EACH(DUMP_ARG, __VA_ARGS__) << std::endl : std::cerr)
 
 #endif // ndef DUMP_H_INCLUDED

@@ -41,6 +41,7 @@
 // A = [ 0,  1,  2,  9, 10, 11]  sum(A) = 33
 // B = [ 3,  4,  5,  6,  7,  8]  sum(B) = 33
 //
+// See also: two-sets-II.cc
 
 #include <bits/stdc++.h>
 

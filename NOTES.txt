@@ -2,6 +2,10 @@ Open questions:
 
   - what is the complexity of concert-tickets-2.cc?
 
+Important problems:
+
+  - elevator-rides.cc (bin packing in O(N × 2^N))
+
 TODO:
 
   - implement min-stack / min-queue and add them to code library
