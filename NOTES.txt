@@ -5,6 +5,7 @@ Open questions:
 Important problems:
 
   - elevator-rides.cc (bin packing in O(N × 2^N))
+    Interesting that the problem becomes easier by calculating more information!
 
 TODO:
 
