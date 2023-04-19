@@ -7,6 +7,10 @@ Important problems:
   - elevator-rides.cc (bin packing in O(N × 2^N))
     Interesting that the problem becomes easier by calculating more information!
 
+  - high-scores.cc ("shortest path" with cycle detection, Bellman-Ford)
+    Shows how to handle cycles correctly (they may exist but not lie on the
+    path from start to finish).
+
 TODO:
 
   - implement min-stack / min-queue and add them to code library

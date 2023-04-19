@@ -22,6 +22,9 @@
 //
 // We can find the cycle 1-2-3, 2-4-3, or 1-2-4-3, depending on the order in
 // which neighbors are visited.
+//
+// Note that finding the longest cycle in a graph (or a cycle of given length K)
+// is an NP-hard problem.
 
 #include <bits/stdc++.h>
 
