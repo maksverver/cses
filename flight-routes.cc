@@ -48,12 +48,8 @@ int main() {
   }
 
   // For each vertex, we will keep the top K shortest distances.
-  constexpr int max_K = 10;
-  using Dists = std::array<int64_t, max_K>;
-  constexpr int64_t inf = 1e18;
-  Dists default_dists;
-  fill(default_dists.begin(), default_dists.end(), inf);
-  vector<Dists> dist(V, default_dists);
+  vector<int64_t> dist(V*K, (int64_t) 1e18);
+  vector<int> visited(V, 0);
 
   std::priority_queue<State> todo;
   todo.push(State{0, 0});
@@ -61,12 +57,8 @@ int main() {
     auto [d, v] = todo.top();
     todo.pop();
 
-    // See if this path is in the top-K distances to node v
-    int i = 0;
-    while (i < K && dist[v][i] <= d) ++i;
-    if (i == K) continue;
-    for (int j = i + 1; j < K; ++j) dist[v][j] = dist[v][j - 1];
-    dist[v][i] = d;
+    if (visited[v] == K) continue;
+    dist[v*K + visited[v]++] = d;
 
     for (auto [w, c] : adj[v]) todo.push({c + d, w});
   }
@@ -74,7 +66,7 @@ int main() {
   // Print output. We can assume all K distances are less than infinity.
   for (int k = 0; k < K; ++k) {
     if (k > 0) cout << ' ';
-    cout << dist[V - 1][k];
+    cout << dist[(V - 1)*K + k];
   }
   cout << endl;
 }
