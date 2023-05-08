@@ -11,8 +11,15 @@ Important problems:
     Shows how to handle cycles correctly (they may exist but not lie on the
     path from start to finish).
 
+  - cycle-finding.cc (Bellman-Ford)
+    Shows how to collect cycles in a graph.
+    Note: this assumes you may start from any vertex in the graph!
+
 TODO:
 
+  - cycle-finding.cc: prove that following prev[v] always leads to a negative-weight cycle
+  - ”Shortest Path Faster Algorithm” (variation of Bellman Ford)
+    test with cycle-finding.cc?
   - implement min-stack / min-queue and add them to code library
     https://cp-algorithms.com/data_structures/stack_queue_modification.html
   - test with maximum-subarray-sum-II.cc

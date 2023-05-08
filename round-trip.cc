@@ -90,7 +90,7 @@ void Solve() {
   }
 }
 
-}  // namespace;
+}  // namespace
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(

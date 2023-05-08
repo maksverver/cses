@@ -25,7 +25,7 @@ namespace {
 int V, E;
 vector<vector<int>> adj;
 
-}  // namespace;
+}  // namespace
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(

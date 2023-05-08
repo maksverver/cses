@@ -33,7 +33,7 @@ struct Edge {
 int V, E;
 vector<vector<Edge>> adj;
 
-}  // namespace;
+}  // namespace
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(
