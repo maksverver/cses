@@ -25,6 +25,9 @@
 //
 // Note that finding the longest cycle in a graph (or a cycle of given length K)
 // is an NP-hard problem.
+//
+// See also round-trip-II.cc for the directed version of this problem, but
+// without the constraint on cycle length.
 
 #include <bits/stdc++.h>
 
