@@ -23,3 +23,6 @@ TODO:
   - implement min-stack / min-queue and add them to code library
     https://cp-algorithms.com/data_structures/stack_queue_modification.html
   - test with maximum-subarray-sum-II.cc
+
+  - Strongly Connected Components should be put in codelib (from flight-roughts-check.cc)
+    and be changed not to rely on call-stack recursion!

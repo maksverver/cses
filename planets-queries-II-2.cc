@@ -1,41 +1,7 @@
 // Planets Queries II
 // https://cses.fi/problemset/task/1160
 //
-// Fun problem!
-//
-// The graph consists of multiple simple cycles, which each vertex in the cycle
-// having a tree attached of nodes that are not part of the cycle.
-//
-// There is a path from v to w only if:
-//
-//  1. v and w lie on the same cycle
-//  2. v lies on the subtree that leads to a cycle vertex u,
-//     and w lies on the same cycle as u
-//  3. v is a descendant of w in the tree that connects to the cycle.
-//
-// For example:
-//
-//   1 --> 2 --> 3 <-- 6 <-- 7
-//         ^     |     ^            <---
-//         |     v     |           9   10 <-- 11
-//         5 <-- 4     8            --->
-//
-// Here, we can see each of the three cases:
-//
-//   1. 2 is reachable from 4 (in 2 steps)
-//   2. 5 is reachable from 1 via cycle vertex 2 (in 1 + 3 = 4 steps)
-//   3. 6 is reachable from 7 (in 1 step)
-//
-// So what we can do is identify the subtrees, then the cycles.
-// Then for each cycle vertex, we can traverse the attached subtree
-// in-order, keeping track of the vertices that lie on the cycle and the
-// path towards the current vertex.
-//
-// The above test case is covered by planets-queries-II-test.in.
-//
-// Time complexity: O((N + Q) log N)
-//
-// See also planets-queryes-II-2.cc for an O(N) variant of this.
+// This is an O(N) optimized version of planets-queries-II.cc.
 
 #include <bits/stdc++.h>
 
@@ -78,9 +44,22 @@ int main() {
   }
 
   vector<int> cycle;  // declared outside the loop so I can reuse the memory
+
+  // Vertices in the cycle are assigned consecutive indexes 0 to cycle.size()
+  // (exclusive). It doesn't matter which vertex is the start (with index 0),
+  // so long as they are numbered consecutively, so the distance between
+  // vertices v and w in the cycle can be computed as:
+  // (cycle_index[w] - cycle_index[v] + cycle.size()) % cycle.size()
+  vector<int> cycle_index(N, -1);
+  // dist_to_cycle[w] = d if vertex w is `d` steps removed from the current
+  // cycle. Note that dist_to_cycle always contains exactly `d` entries, its
+  // values are the distinct numbers between 1 and `d` (inclusive), and its
+  // keys are the vertices on the path from the cycle entry to `v`, with
+  // dist_to_cycle[v] = d (if d > 0).
+  vector<int> dist_to_cycle(N, -1);
+
   REP(i, N) if (!seen[i]) {
     // Identify a new cycle starting at `i`
-    map<int, int> cycle_index;
     int v = i, idx = 0;
     cycle.clear();
     do {
@@ -95,21 +74,15 @@ int main() {
     REP(entry_index, cycle.size()) {
       int v = cycle[entry_index];  // current vertex; initially the cycle vertex
       int d = 0;  // current distance to the cycle
-      // dist_to_cycle[w] = d if vertex w is `d` steps removed from the current
-      // cycle. Note that dist_to_cycle always contains exactly `d` entries, its
-      // values are the distinct numbers between 1 and `d` (inclusive), and its
-      // keys are the vertices on the path from the cycle entry to `v`, with
-      // dist_to_cycle[v] = d (if d > 0).
-      map<int, int> dist_to_cycle;
       for (;;) {
         // Answer queries which have the source vertex as the current node.
         for (Query *q : queries_by_source[v]) {
-          if (auto it = dist_to_cycle.find(q->b); it != dist_to_cycle.end()) {
+          if (int e = dist_to_cycle[q->b]; e != -1) {
             // Destination lies on the path towards the cycle (not on the cycle itself)
-            q->answer = d - it->second;
-          } else if (auto it = cycle_index.find(q->b); it != cycle_index.end()) {
+            q->answer = d - e;
+          } else if (int j = cycle_index[q->b]; j != -1) {
             // Destination lies on the cycle, which is `d` steps away.
-            q->answer = d + (it->second - entry_index + cycle.size()) % cycle.size();
+            q->answer = d + (j - entry_index + cycle.size()) % cycle.size();
           } else {
             // Destination is not reachable.
             q->answer = -1;
@@ -123,7 +96,7 @@ int main() {
         // dist_to_cycle contains the distances of the vertices on the path from
         // `v` to the cycle vertex.
         while (d > 0 && prevs[v].empty()) {
-          dist_to_cycle.erase(v);
+          dist_to_cycle[v] = -1;
           --d;
           v = next[v];
         }
@@ -136,6 +109,8 @@ int main() {
         dist_to_cycle[v] = ++d;
       }
     }
+
+    for (int v : cycle) cycle_index[v] = -1;
   }
 
   for (const Query &q : queries) cout << q.answer << '\n';
