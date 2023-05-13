@@ -26,3 +26,5 @@ TODO:
 
   - Strongly Connected Components should be put in codelib (from flight-roughts-check.cc)
     and be changed not to rely on call-stack recursion!
+
+  - Add a note about 2SAT (giant-pizza.cc) to codelib2/
