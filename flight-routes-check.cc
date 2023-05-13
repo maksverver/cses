@@ -3,8 +3,8 @@
 //
 // Solution:
 //
-// Consider the directed graph G given in the input, and the graph G' obtained
-// by flipping the direction of all edges.
+// Consider the directed graph G given in the input, and the transpose graph G'
+// obtained by flipping the direction of all edges.
 //
 // Now pick an arbitary vertex v. We can use a DFS/BFS on G to determine the
 // vertices reachable from v, and a DFS/BFS on G' to determine the vertices from
