@@ -28,3 +28,5 @@ TODO:
     and be changed not to rely on call-stack recursion!
 
   - Add a note about 2SAT (giant-pizza.cc) to codelib2/
+
+  - Add a note about Eulerian tours (Hierholzer's algorithm) (mail-delivery.cc) to codelib2/
