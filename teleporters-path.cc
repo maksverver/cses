@@ -1,9 +1,9 @@
-// Mail Delivery
-// https://cses.fi/problemset/task/1691
+// Teleporters Path
+// https://cses.fi/problemset/task/1693
 //
 // Problem:
 //
-// Find a Eulerian cycle in an undirected graph (i.e., a cycle that
+// Find a Eulerian cycle in a directed graph (i.e., a cycle that
 // visits each edge exactly once).
 //
 // Solution:
@@ -15,7 +15,7 @@
 //
 // The overall algorithm is O(E) when implemented correctly.
 //
-// See also teleporters-path.cc for the directed version of this problem.
+// See also mail-delivery.cc for the undirected version of this problem.
 
 #include <bits/stdc++.h>
 
@@ -23,31 +23,18 @@ using namespace std;
 
 namespace {
 
-struct Edge {
-  int w;
-  int edge_index;
-};
-
 int V, E;
-vector<char> edge_used;
-vector<vector<Edge>> adj;
-
-int ExtractUnusedEdge(int v) {
-  while (!adj[v].empty() && edge_used[adj[v].back().edge_index]) adj[v].pop_back();
-  if (adj[v].empty()) return -1;
-  auto [w, e] = adj[v].back();
-  edge_used[e] = true;
-  return w;
-}
+vector<vector<int>> next;
+vector<vector<int>> prev;
 
 deque<int> FindEulerianCycle() {
   deque<int> cycle;
 
-  // A Eulerian cycle requires that all vertices have even degree.
+  // A Eulerian cycle requires that all vertices have equal in- and outdegree.
   // This doesn't check that the graph is connected, which is also required,
   // but we'll detect that later.
-  for (const auto &edges : adj) {
-    if (edges.size() % 2 != 0) return cycle;
+  for (int v = 0; v < V; ++v) {
+    if (next[v].size() != prev[v].size()) return cycle;
   }
 
   int skips = 0;
@@ -55,18 +42,19 @@ deque<int> FindEulerianCycle() {
   while (skips < cycle.size()) {
     int v = cycle.front();
     cycle.pop_front();
-    int w = ExtractUnusedEdge(v);
-    if (w == -1) {
+    if (prev[v].empty()) {
       cycle.push_back(v);
       ++skips;
       continue;
     }
     skips = 0;
     cycle.push_front(v);
-    do {
-      cycle.push_front(w);
-      w = ExtractUnusedEdge(w);
-    } while (w != -1);
+    while (!prev[v].empty()) {
+      int u = prev[v].back();
+      prev[v].pop_back();
+      cycle.push_front(u);
+      v = u;
+    }
   }
 
   // Rotate the cycle so it starts and ends with 0.
@@ -79,31 +67,40 @@ deque<int> FindEulerianCycle() {
   return cycle;
 }
 
+void Solve() {
+  cin >> V >> E;
+  next.resize(V);
+  prev.resize(V);
+  for (int e = 0; e < E; ++e) {
+    int v = 0, w = 0;
+    cin >> v >> w;
+    --v, --w;
+    next[v].push_back(w);
+    prev[w].push_back(v);
+  }
+
+  // Add extra edge from last to first vertex, so we can treat it as a Eulerian
+  // cycle problem.
+  next[V - 1].push_back(0);
+  prev[0].push_back(V - 1);
+
+  deque<int> cycle = FindEulerianCycle();
+  if (cycle.size() != E + 2) {
+    cout << "IMPOSSIBLE" << endl;
+  } else {
+    for (int i = 0; i < cycle.size() - 1; ++i) {
+      if (i > 0) cout << ' ';
+      cout << cycle[i] + 1;
+    }
+    cout << endl;
+  }
+}
+
 }  // namespace
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(
   ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
-  cin >> V >> E;
-  edge_used.assign(E, false);
-  adj.resize(V);
-  for (int e = 0; e < E; ++e) {
-    int v = 0, w = 0;
-    cin >> v >> w;
-    --v, --w;
-    adj[v].push_back({w, e});
-    adj[w].push_back({v, e});
-  }
-
-  deque<int> cycle = FindEulerianCycle();
-  if (cycle.size() != E + 1) {
-    cout << "IMPOSSIBLE" << endl;
-  } else {
-    for (int i = 0; i < cycle.size(); ++i) {
-      if (i > 0) cout << ' ';
-      cout << cycle[i] + 1;
-    }
-    cout << endl;
-  }
+  Solve();
 }

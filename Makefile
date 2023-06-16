@@ -6,7 +6,7 @@ SORTING_AND_SEARCHING_PROBLEMS=distinct-numbers apartments ferris-wheel concert-
 
 DYNAMIC_PROGRAMMING_PROBLEMS=dice-combinations minimizing-coins coin-combinations-I coin-combinations-II removing-digits grid-paths-DP book-shop array-description counting-towers edit-distance rectangle-cutting money-sums removal-game two-sets-II increasing-subsequence projects elevator-rides elevator-rides-2 counting-tilings counting-tilings-2 counting-numbers
 
-GRAPH_ALGORITHM_PROBLEMS=counting-rooms labyrinth building-roads message-route building-teams round-trip monsters shortest-routes-I shortest-routes-II high-score flight-discount cycle-finding flight-routes round-trip-II course-schedule longest-flight-route game-routes investigation planets-queries-I planets-queries-II planets-cycles road-reparation road-construction flight-routes-check flight-routes-check-2 planets-and-kingdoms giant-pizza coin-collector mail-delivery
+GRAPH_ALGORITHM_PROBLEMS=counting-rooms labyrinth building-roads message-route building-teams round-trip monsters shortest-routes-I shortest-routes-II high-score flight-discount cycle-finding flight-routes round-trip-II course-schedule longest-flight-route game-routes investigation planets-queries-I planets-queries-II planets-cycles road-reparation road-construction flight-routes-check flight-routes-check-2 planets-and-kingdoms giant-pizza coin-collector mail-delivery teleporters-path hamiltonian-flights
 
 RANGE_QUERY_PROBLEMS=
 
@@ -30,7 +30,7 @@ PRECOMPILED_HEADERS=pch/bits/stdc++.h.gch
 
 all: $(PRECOMPILED_HEADERS) $(PROBLEMS)
 
-pch/bits/stdc++.h.gch: /usr/include/c++/12.2.1/x86_64-pc-linux-gnu/bits/stdc++.h
+pch/bits/stdc++.h.gch: $(wildcard /usr/include/c++/*/x86_64-pc-linux-gnu/bits/stdc++.h)
 	mkdir -p pch/bits/
 	g++ -x c++-header $(CXXFLAGS) -o $@ -c $<
 

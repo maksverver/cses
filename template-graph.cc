@@ -29,7 +29,7 @@ vector<vector<int>> adj;
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(
-  ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+  ios_base::sync_with_stdio(false), cin.tie(nullptr);
 
   cin >> V >> E;
   adj.resize(V);
