@@ -6,9 +6,9 @@ SORTING_AND_SEARCHING_PROBLEMS=distinct-numbers apartments ferris-wheel concert-
 
 DYNAMIC_PROGRAMMING_PROBLEMS=dice-combinations minimizing-coins coin-combinations-I coin-combinations-II removing-digits grid-paths-DP book-shop array-description counting-towers edit-distance rectangle-cutting money-sums removal-game two-sets-II increasing-subsequence projects elevator-rides elevator-rides-2 counting-tilings counting-tilings-2 counting-numbers
 
-GRAPH_ALGORITHM_PROBLEMS=counting-rooms labyrinth building-roads message-route building-teams round-trip monsters shortest-routes-I shortest-routes-II high-score flight-discount cycle-finding flight-routes round-trip-II course-schedule longest-flight-route game-routes investigation planets-queries-I planets-queries-II planets-cycles road-reparation road-construction flight-routes-check flight-routes-check-2 planets-and-kingdoms giant-pizza coin-collector mail-delivery teleporters-path hamiltonian-flights knights-tour download-speed police-chase school-dance distinct-routes de-bruijn-sequence
+GRAPH_ALGORITHM_PROBLEMS=counting-rooms labyrinth building-roads message-route building-teams round-trip monsters shortest-routes-I shortest-routes-II high-score flight-discount cycle-finding flight-routes round-trip-II course-schedule longest-flight-route game-routes investigation planets-queries-I planets-queries-II planets-cycles road-reparation road-construction flight-routes-check flight-routes-check-2 planets-and-kingdoms giant-pizza coin-collector mail-delivery de-bruijn-sequence teleporters-path hamiltonian-flights knights-tour download-speed police-chase school-dance distinct-routes
 
-RANGE_QUERY_PROBLEMS=
+RANGE_QUERY_PROBLEMS=static-range-sum-queries static-range-minimum-queries dynamic-range-sum-queries dynamic-range-minimum-queries
 
 TREE_ALGORITHM_PROBLEMS=
 
