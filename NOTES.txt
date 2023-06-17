@@ -1,3 +1,6 @@
+Most problems can be solved by referencing the Competitive Programmer's Handbook
+available at: https://usaco.guide/CPH.pdf
+
 Open questions:
 
   - what is the complexity of concert-tickets-2.cc?
@@ -29,4 +32,15 @@ TODO:
 
   - Add a note about 2SAT (giant-pizza.cc) to codelib2/
 
-  - Add a note about Eulerian tours (Hierholzer's algorithm) (mail-delivery.cc) to codelib2/
+  - Add a note about Eulerian tours (Hierholzer's algorithm) (mail-delivery.cc, teleporters-path.cc) to codelib2/
+
+  - Min Cost Max Flow:
+     - add implementation of Dinic's algorithm?
+       I want O(V^2 E) performance
+       and the ability to easily extract the flow graph and the edges in a min cut
+       need a problem to test it on!
+
+  - Combine usages of min-cost-max-flow into a single header
+  - Combine usages of Hierholzer's algorithm into a single header
+    Also, it would be nice to have a more solid grasp of why rotating works (especially in the case
+    where there is a loop at vertex 0?)

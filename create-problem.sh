@@ -22,7 +22,7 @@ if [ -e "$source" ]; then
   exit 1
 fi
 
-cp -n template-graph.cc "$source"
+cp -n template.cc "$source"
 
 # Update the section name after completing a section.
-sed -e "/^GRAPH_ALGORITHM_PROBLEMS=/s/$/ $name/" -i Makefile
+sed -e "/^RANGE_QUERY_PROBLEMS=/s/$/ $name/" -i Makefile
