@@ -35,12 +35,15 @@ TODO:
   - Add a note about Eulerian tours (Hierholzer's algorithm) (mail-delivery.cc, teleporters-path.cc) to codelib2/
 
   - Min Cost Max Flow:
-     - add implementation of Dinic's algorithm?
-       I want O(V^2 E) performance
+     - maybe improve pathfinding using edge list?
+     - maybe add implementation of Dinic's algorithm? (max flow only!)
+       https://codeforces.com/blog/entry/104960
+       https://github.com/kth-competitive-programming/kactl/blob/eee7d5991ad944311f157e106082528be602fe73/content/graph/Dinic.h#L25-L36
+       https://cp-algorithms.com/graph/dinic.html#implementation
+
+       Compare with MPM algorithm?
+
+       I want O(V^2 E) performance (but I already have push-relabel for that!)
        and the ability to easily extract the flow graph and the edges in a min cut
        need a problem to test it on!
-
-  - Combine usages of min-cost-max-flow into a single header
-  - Combine usages of Hierholzer's algorithm into a single header
-    Also, it would be nice to have a more solid grasp of why rotating works (especially in the case
-    where there is a loop at vertex 0?)
+     - Combine usages of min-cost-max-flow into a single header?

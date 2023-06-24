@@ -11,12 +11,12 @@ using namespace std;
 #define FOR(i,a,b) for (int i = int(a), _end_##i = int(b); i < _end_##i; ++i)
 #define REP(i,n) FOR(i,0,n)
 
-template<class T>
-ostream &operator<<(ostream &os, const vector<T> &v) {
-  REP(i, v.size()) {
-    if (i > 0) os << ' ';
-    os << v[i];
-  }
+template<class S, class T> ostream& operator<<(ostream &os, const pair<S, T> &p) {
+  return os << '{' << p.first << ',' << p.second << '}';
+}
+
+template<class T> ostream &operator<<(ostream &os, const vector<T> &v) {
+  REP(i, v.size()) os << (i ? " " : "") << v[i];
   return os;
 }
 

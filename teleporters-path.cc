@@ -23,51 +23,69 @@ using namespace std;
 
 namespace {
 
-int V, E;
 vector<vector<int>> next;
 vector<vector<int>> prev;
 
+// Uses Hierholzer's algorithm to find a Eulerian cycle in a directed graph
+// in O(V + E) time.
+//
+// A Eularian cycle exists if and only if:
+//
+//  1. All vertices in the graph have equal indegree and outdegree.
+//  2. The edge set of the graph is connected.
+//
+// If these conditions are fulfilled, this function returns a deque of integers
+// whose size is equal to the number of edges: the vertices in the cycle in
+// order (with an edge from the last vertex to the first to complete the cycle).
+// Otherwise, it returns an empty deque.
 deque<int> FindEulerianCycle() {
   deque<int> cycle;
 
-  // A Eulerian cycle requires that all vertices have equal in- and outdegree.
-  // This doesn't check that the graph is connected, which is also required,
-  // but we'll detect that later.
-  for (int v = 0; v < V; ++v) {
+  // Check condition 1: all vertices have equal indegree and outdegree.
+  size_t edge_count = 0;
+  for (int v = 0; v < next.size(); ++v) {
     if (next[v].size() != prev[v].size()) return cycle;
+    edge_count += next[v].size();
   }
 
+  auto extend = [&](int v) {
+    while (!next[v].empty()) {
+      int w = next[v].back();
+      next[v].pop_back();
+      cycle.push_back(w);
+      v = w;
+    }
+  };
+
+  // Find an initial cycle.
+  int v = 0;
+  while (v < next.size() && next[v].empty()) ++v;
+  if (v == next.size()) return cycle;
+  extend(v);
+
+  // Extend the cycle maximally.
   int skips = 0;
-  cycle.push_back(0);
   while (skips < cycle.size()) {
-    int v = cycle.front();
-    cycle.pop_front();
-    if (prev[v].empty()) {
-      cycle.push_back(v);
+    int v = cycle.back();
+    cycle.pop_back();
+    if (next[v].empty()) {
+      cycle.push_front(v);
       ++skips;
-      continue;
-    }
-    skips = 0;
-    cycle.push_front(v);
-    while (!prev[v].empty()) {
-      int u = prev[v].back();
-      prev[v].pop_back();
-      cycle.push_front(u);
-      v = u;
+    } else {
+      cycle.push_back(v);
+      extend(v);
+      skips = 0;
     }
   }
 
-  // Rotate the cycle so it starts and ends with 0.
-  while (cycle.front() != 0 || cycle.back() != 0) {
-    int v = cycle.front();
-    cycle.pop_front();
-    cycle.push_back(v);
-  }
+  // Check condition 2: the edge set is connected.
+  if (cycle.size() != edge_count) return {};
 
   return cycle;
 }
 
 void Solve() {
+  int V = 0, E = 0;
   cin >> V >> E;
   next.resize(V);
   prev.resize(V);
@@ -85,10 +103,19 @@ void Solve() {
   prev[0].push_back(V - 1);
 
   deque<int> cycle = FindEulerianCycle();
-  if (cycle.size() != E + 2) {
+  std::cerr << cycle.size() << '\n';
+  if (cycle.empty()) {
     cout << "IMPOSSIBLE" << endl;
   } else {
-    for (int i = 0; i < cycle.size() - 1; ++i) {
+    assert(cycle.size() == E + 1);
+
+    // Rotate so we start from 1 and end at N
+    while (cycle.front() != 0 || cycle.back() != V - 1)  {
+      int v = cycle.front();
+      cycle.pop_front();
+      cycle.push_back(v);
+    }
+    for (int i = 0; i < cycle.size(); ++i) {
       if (i > 0) cout << ' ';
       cout << cycle[i] + 1;
     }

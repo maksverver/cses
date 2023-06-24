@@ -31,30 +31,31 @@ using namespace std;
 namespace {
 
 int N, V;
-vector<vector<int>> prev;
-
-void ExtendCycle(deque<int> &cycle, int v) {
-  cycle.push_front(v);
-  while (!prev[v].empty()) {
-    int u = prev[v].back();
-    prev[v].pop_back();
-    cycle.push_front(u);
-    v = u;
-  }
-}
+vector<vector<int>> next;
 
 deque<int> FindEulerianCycle() {
   deque<int> cycle;
+
+  auto extend = [&](int v) {
+    while (!next[v].empty()) {
+      int w = next[v].back();
+      next[v].pop_back();
+      cycle.push_back(w);
+      v = w;
+    }
+  };
+
+  extend(0);
   int skips = 0;
-  ExtendCycle(cycle, 0);
   while (skips < cycle.size()) {
-    int v = cycle.front();
-    cycle.pop_front();
-    if (prev[v].empty()) {
-      cycle.push_back(v);
+    int v = cycle.back();
+    cycle.pop_back();
+    if (next[v].empty()) {
+      cycle.push_front(v);
       ++skips;
     } else {
-      ExtendCycle(cycle, v);
+      cycle.push_back(v);
+      extend(v);
       skips = 0;
     }
   }
@@ -70,18 +71,18 @@ void Solve() {
   assert(N >= 2);
 
   V = 1 << (N - 1);
-  prev = vector<vector<int>>(V);
+  next = vector<vector<int>>(V);
   REP(v, V) REP(bit, 2) {
     int w = ((v << 1) | bit) & (V - 1);
-    prev[w].push_back(v);
+    next[v].push_back(w);
   }
 
   deque<int> cycle = FindEulerianCycle();
-  assert(cycle.front() == 0);  // why does this happen??
-  assert(cycle.size() == (1 << N) + 1);
+  assert(cycle.back() == 0);  // why does this happen??
+  assert(cycle.size() == (1 << N));
   string bits;
   REP(i, N - 1) bits += '0';
-  FOR(i, 1, cycle.size()) bits += "01"[cycle[i] & 1];
+  for (int v : cycle) bits += "01"[v & 1];
   cout << bits << '\n';
 }
 
