@@ -36,11 +36,11 @@ static void Solve() {
   }
   vector<int64_t> dist(V, 0);
   vector<int> prev(V, -1);
-  REP(n, V - 1) for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
+  REP(n, V) for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
     dist[w] = dist[v] + c;
     prev[w] = v;
   }
-  for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
+  for (auto [v, w, c] : edges) if (v == prev[w] && dist[v] + c < dist[w]) {
     // Cycle detected! Now reconstruct it. This is mildly tricky.
     std::vector<char> visited(V);
     visited[w] = true;
