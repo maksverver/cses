@@ -36,27 +36,35 @@ static void Solve() {
   }
   vector<int64_t> dist(V, 0);
   vector<int> prev(V, -1);
-  REP(n, V - 1) for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
-    dist[w] = dist[v] + c;
-    prev[w] = v;
-  }
-  for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
-    // Cycle detected! Now reconstruct it. This is mildly tricky.
-    prev[w] = v;  // important to support negative-weight loops!
-    std::vector<char> visited(V);
-    visited[w] = true;
-    while (!visited[v]) {
-      visited[v] = true;
-      v = prev[v];
-      assert(v != -1);
+  REP(n, V) {
+    bool changed = false;
+    for (auto [v, w, c] : edges) if (dist[v] + c < dist[w]) {
+      changed = true;
+      dist[w] = dist[v] + c;
+      prev[w] = v;
+      if (n == V - 1) {
+        // Cycle detected! Reconstructing the cycle is mildly tricky, because
+        // the edge (v, w) isn't necessarily part of the cycle, but it must be
+        // reachable from it. So use a cycle-finding algorithm to find a vertex
+        // that lies on the cycle:
+        std::vector<char> visited(V);
+        visited[w] = true;
+        while (!visited[v]) {
+          visited[v] = true;
+          v = prev[v];
+          assert(v != -1);
+        }
+        // Vertex v lies on the cycle. Now reconstruct the actual cycle.
+        std::vector<int> cycle;
+        cycle.push_back(v + 1);
+        for (int u = prev[v]; u != v; u = prev[u]) cycle.push_back(u + 1);
+        cycle.push_back(v + 1);
+        std::reverse(cycle.begin(), cycle.end());
+        cout << "YES\n" << cycle << '\n';
+        return;
+      }
     }
-    std::vector<int> cycle;
-    cycle.push_back(v + 1);
-    for (int u = prev[v]; u != v; u = prev[u]) cycle.push_back(u + 1);
-    cycle.push_back(v + 1);
-    std::reverse(cycle.begin(), cycle.end());
-    cout << "YES\n" << cycle << '\n';
-    return;
+    if (!changed) break;  // early-out
   }
   cout << "NO\n";
 }
