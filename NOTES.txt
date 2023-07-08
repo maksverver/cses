@@ -47,3 +47,5 @@ TODO:
        and the ability to easily extract the flow graph and the edges in a min cut
        need a problem to test it on!
      - Combine usages of min-cost-max-flow into a single header?
+
+ - Combine uses of SegmentTree?
