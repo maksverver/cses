@@ -27,10 +27,7 @@ public:
 
   // Initialize a segment tree from a vector of given size.
   template<class U> LazySegmentTree(const std::vector<U> &v, V zero)
-      : size(v.size()), layers(CountLayers(size)),
-        data(((1 << layers) - 1), zero),
-        mutations(((1 << layers) - 1), zero),
-        zero(std::move(zero)) {
+      : LazySegmentTree(v.size(), std::move(zero)) {
     int k = (1 << (layers - 1)) - 1;
     for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
     for (int i = k - 1; i >= 0; --i) data[i] = data[Child(i)] + data[Child(i) + 1];
@@ -50,7 +47,7 @@ public:
 
   // Adds `value` at index i.
   void Add(int i, const V &value) {
-    UpdateRange(i, i + 1, value);
+    AddRange(i, i + 1, value);
   }
 
   // Add `value` to all elements in range i..j (exclusive),
