@@ -27,10 +27,10 @@ public:
 
   // Initialize a segment tree from a vector of given size.
   template<class U> SegmentTree(const std::vector<U> &v, V zero, C combine)
-      : size(v.size()), layers(CountLayers(size)),
-        data(((1 << layers) - 1), zero),
-        zero(std::move(zero)), combine(std::move(combine)) {
-    Init(v, 0, 0, 1 << (layers - 1));
+      : SegmentTree(v.size(), std::move(zero), std::move(combine)) {
+    int k = (1 << (layers - 1)) - 1;
+    for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
+    for (int i = k - 1; i >= 0; --i) data[i] = combine(data[Child(i)], data[Child(i) + 1]);
   }
 
   void Set(int i, V value) {
@@ -135,19 +135,6 @@ private:
       ++layers;
     }
     return layers;
-  }
-
-  template<class U> void Init(const vector<U> &v, int idx, int start, int end) {
-    if (start >= v.size()) return;
-    if (end - start == 1) {
-      data[idx] = v[start];
-    } else {
-      int mid = start + ((end - start) >> 1);
-      int c1 = Child(idx), c2 = c1 + 1;
-      Init(v, c1, start, mid);
-      Init(v, c2, mid, end);
-      data[idx] = combine(data[c1], data[c2]);
-    }
   }
 
   V GetRange(int i, int j, int idx, int start, int end) const {

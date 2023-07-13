@@ -31,7 +31,9 @@ public:
         data(((1 << layers) - 1), zero),
         updates(((1 << layers) - 1), zero),
         zero(std::move(zero)) {
-    Init(v, 0, 0, 1 << (layers - 1));
+    int k = (1 << (layers - 1)) - 1;
+    for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
+    for (int i = k - 1; i >= 0; --i) data[i] = data[Child(i)] + data[Child(i) + 1];
   }
 
   // Returns the value at index i.
@@ -69,19 +71,6 @@ private:
       ++layers;
     }
     return layers;
-  }
-
-  template<class U> void Init(const vector<U> &v, int idx, int start, int end) {
-    if (start >= v.size()) return;
-    if (end - start == 1) {
-      data[idx] = v[start];
-    } else {
-      int mid = start + ((end - start) >> 1);
-      int c1 = Child(idx), c2 = c1 + 1;
-      Init(v, c1, start, mid);
-      Init(v, c2, mid, end);
-      data[idx] = data[c1] + data[c2];
-    }
   }
 
   void ClearUpdate(int idx, int width) const {
