@@ -22,14 +22,14 @@ public:
   LazySegmentTree(int size, V zero)
       : size(size), layers(CountLayers(size)),
         data(((1 << layers) - 1), zero),
-        updates(((1 << layers) - 1), zero),
+        mutations(((1 << layers) - 1), zero),
         zero(std::move(zero)) {}
 
   // Initialize a segment tree from a vector of given size.
   template<class U> LazySegmentTree(const std::vector<U> &v, V zero)
       : size(v.size()), layers(CountLayers(size)),
         data(((1 << layers) - 1), zero),
-        updates(((1 << layers) - 1), zero),
+        mutations(((1 << layers) - 1), zero),
         zero(std::move(zero)) {
     int k = (1 << (layers - 1)) - 1;
     for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
@@ -49,13 +49,13 @@ public:
   }
 
   // Adds `value` at index i.
-  void Update(int i, const V &value) {
+  void Add(int i, const V &value) {
     UpdateRange(i, i + 1, value);
   }
 
   // Add `value` to all elements in range i..j (exclusive),
   // or does nothing if i >= j.
-  void UpdateRange(int i, int j, const V &value) {
+  void AddRange(int i, int j, const V &value) {
     assert(0 <= i && j <= size);
     if (i < j) UpdateRange(i, j, 0, 0, 1 << (layers - 1), value);
   }
@@ -74,14 +74,13 @@ private:
   }
 
   void ClearUpdate(int idx, int width) const {
-    if (updates[idx] == zero) return;
-    data[idx] += updates[idx] * width;
+    if (mutations[idx] == zero) return;
+    data[idx] += mutations[idx] * width;
     if (width > 1) {
-      int c = Child(idx);
-      if (c + 0 < data.size()) updates[c + 0] += updates[idx];
-      if (c + 1 < data.size()) updates[c + 1] += updates[idx];
+      mutations[Child(idx) + 0] += mutations[idx];
+      mutations[Child(idx) + 1] += mutations[idx];
     }
-    updates[idx] = zero;
+    mutations[idx] = zero;
   }
 
   V GetRange(int i, int j, int idx, int start, int end) const {
@@ -96,7 +95,7 @@ private:
 
   void UpdateRange(int i, int j, int idx, int start, int end, const V &value) {
     if (i <= start && j >= end) {
-      updates[idx] += value;
+      mutations[idx] += value;
     } else {
       data[idx] += value * (min(j, end) - max(i, start));
       int mid = start + ((end - start) >> 1);
@@ -108,7 +107,7 @@ private:
   int size;
   int layers;
   mutable vector<V> data;
-  mutable vector<V> updates;
+  mutable vector<V> mutations;
   V zero;
 };
 
@@ -128,7 +127,7 @@ int main() {
     if (type == 1) {
       int i = 0, j = 0, v = 0;
       cin >> i >> j >> v;
-      tree.UpdateRange(i - 1, j, v);
+      tree.AddRange(i - 1, j, v);
     } else {
       assert(type == 2);
       int i = 0;
