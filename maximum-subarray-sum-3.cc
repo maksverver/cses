@@ -37,9 +37,7 @@
 //
 // Which is basically the logic we have here.
 
-#include <algorithm>
 #include <bits/stdc++.h>
-#include <limits>
 
 using namespace std;
 

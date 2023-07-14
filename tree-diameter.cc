@@ -1,6 +1,6 @@
+// Tree Diameter
 // https://cses.fi/problemset/task/1131/
 
-#include <algorithm>
 #include <bits/stdc++.h>
 
 #if __has_include("dump.h")

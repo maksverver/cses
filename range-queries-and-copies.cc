@@ -4,7 +4,6 @@
 // Solution: copy-on-write segment tree.
 
 #include <bits/stdc++.h>
-#include <memory>
 
 using namespace std;
 

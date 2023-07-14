@@ -1,13 +1,7 @@
+// Tree Distances I
 // https://cses.fi/problemset/task/1132
 
-#include <algorithm>
 #include <bits/stdc++.h>
-
-#if __has_include("dump.h")
-#include "dump.h"
-#else
-#define DUMP(...)
-#endif
 
 using namespace std;
 

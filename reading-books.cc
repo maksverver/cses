@@ -30,7 +30,6 @@
 //    which the first kid still needs to read. So this takes X + Y = Y + X time
 //    for both kids.
 
-#include <algorithm>
 #include <bits/stdc++.h>
 
 using namespace std;

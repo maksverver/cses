@@ -16,7 +16,6 @@
 //
 // See also maximum-subarray-sum-II.c
 
-#include <algorithm>
 #include <bits/stdc++.h>
 
 using namespace std;

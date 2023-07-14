@@ -12,7 +12,6 @@
 // need to iterate from right to left, to avoid reusing the same coin.
 
 #include <bits/stdc++.h>
-#include <numeric>
 
 using namespace std;
 
