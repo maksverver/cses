@@ -1,7 +1,7 @@
 // Dynamic Range Minimum Queries
 // https://cses.fi/problemset/task/1649
 //
-// Solution: ad-hoc segment tree
+// Solution: ad-hoc segment tree.
 
 #include <bits/stdc++.h>
 

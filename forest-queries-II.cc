@@ -2,18 +2,19 @@
 
 using namespace std;
 
+// See also codelib3/SegmentTree2D.cc
 template<typename V, typename C>
-class SegmentTree {
+class SegmentTree2D {
 public:
-  SegmentTree(int height, int width, V zero, C combine)
+  SegmentTree2D(int height, int width, V zero, C combine)
     : height(height), width(width),
       layers1(CountLayers(height)), layers2(CountLayers(width)),
       data(((1 << layers1) - 1), vector<V>((1 << layers2) - 1, zero)),
       zero(std::move(zero)), combine(std::move(combine)) {}
 
   // Initialize a segment tree from a vector of same-length vectors.
-  template<class U> SegmentTree(const std::vector<std::vector<U>> &v, V zero, C combine)
-    : SegmentTree(v.size(), v[0].size(), std::move(zero), std::move(combine)) {
+  template<class U> SegmentTree2D(const std::vector<std::vector<U>> &v, V zero, C combine)
+    : SegmentTree2D(v.size(), v[0].size(), std::move(zero), std::move(combine)) {
     int k1 = (1 << (layers1 - 1)) - 1;
     int k2 = (1 << (layers2 - 1)) - 1;
     for (int r = 0; r < height; ++r) {
@@ -119,7 +120,6 @@ private:
   C combine;
 };
 
-
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(
   ios_base::sync_with_stdio(false), cin.tie(nullptr);
@@ -137,7 +137,7 @@ int main() {
   }
 
   auto sum = [](int a, int b) { return a + b; };
-  SegmentTree tree(A, 0, sum);
+  SegmentTree2D tree(A, 0, sum);
 
   while (Q--) {
     int type = 0;
