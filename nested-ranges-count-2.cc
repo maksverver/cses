@@ -1,32 +1,14 @@
 // Nested Ranges Count
-// https://cses.fi/problemset/task/2168
+// https://cses.fi/problemset/task/2169
 //
 // Variation of nested-ranges-count.cc that uses a Fenwick tree to count
 // values. (See codelib2/Fenwick.cpp for more information.)
 
 #include <bits/stdc++.h>
 
+#include "fenwick.h"
+
 using namespace std;
-
-
-/* Calculates the sum of the first `n` elements in `a` (which are the elements
-   with zero-based indices strictly less than n). */
-static int fenwick_prefixsum(std::vector<int> &a, size_t n) {
-  int res = 0;
-  while (n > 0) res += a[n - 1], n &= n - 1;
-  return res;
-}
-
-/* Calculates the sum of elements from index i to j (exclusive). */
-static int fenwick_rangesum(std::vector<int> &a, size_t i, size_t j) {
-  return i < j ? fenwick_prefixsum(a, j) - fenwick_prefixsum(a, i) : 0;
-}
-
-/* Adds `v` to the value stored at index `i`. */
-static void fenwick_update(std::vector<int> &a, size_t i, int v) {
-  while (i < a.size()) a[i] += v, i |= i + 1;
-}
-
 
 #define FOR(i,a,b) for (int i = int(a), _end_##i = int(b); i < _end_##i; ++i)
 #define REP(i,n) FOR(i,0,n)

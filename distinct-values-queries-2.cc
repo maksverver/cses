@@ -3,9 +3,9 @@
 //
 // Solution 2: Fenwick array.
 //
-// (I stole this idea from the USACO tutorial.) We through the array from left to
-// right and maintain binary Fenwick array T so that at position j, T[i] = 1
-// iff. A[i] is the last occurence of the value A[i] in A[0..j).
+// (I stole this idea from the USACO tutorial.) We go through the array from
+// left to right and maintain binary Fenwick array T so that at position j,
+// T[i] = 1 iff. A[i] is the last occurence of the value A[i] in A[0..j).
 //
 //
 // A = 3 1 4 1 5 9 2 6 5...
@@ -22,6 +22,8 @@
 
 #include <bits/stdc++.h>
 
+#include "fenwick.h"
+
 using namespace std;
 
 #define FOR(i,a,b) for (int i = int(a), _end_##i = int(b); i < _end_##i; ++i)
@@ -30,16 +32,6 @@ using namespace std;
 struct Query {
   int a, b, index;
 };
-
-static void fenwick_update(std::vector<int> &a, size_t i, int v) {
-  while (i < a.size()) a[i] += v, i |= i + 1;
-}
-
-static int fenwick_prefixsum(const std::vector<int> &a, size_t n) {
-  int res = 0;
-  while (n > 0) res += a[n - 1], n &= n - 1;
-  return res;
-}
 
 int main() {
   // Make C++ I/O not slow. It's sad that this is necessary :-(

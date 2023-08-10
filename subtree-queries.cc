@@ -20,44 +20,14 @@
 
 #include <bits/stdc++.h>
 
+#include "fenwick.h"
+
 using namespace std;
 
 #define FOR(i,a,b) for (int i = int(a), _end_##i = int(b); i < _end_##i; ++i)
 #define REP(i,n) FOR(i,0,n)
 
 namespace {
-
-/* Converts a regular array into a Fenwick array (in linear time). */
-void fenwick_construct(std::vector<int64_t> &a) {
-  for (size_t i = 1; i < a.size(); i = 2 * i)
-    for (size_t j = 2 * i - 1; j < a.size(); j += 2 * i)
-      a[j] += a[j - i];
-}
-
-/* Calculates the sum of the first `n` elements in `a` (which are the elements
-   with zero-based indices strictly less than n). */
-int64_t fenwick_prefixsum(const std::vector<int64_t> &a, size_t n) {
-  int64_t res = 0;
-  while (n > 0) res += a[n - 1], n &= n - 1;
-  return res;
-}
-
-/* Calculates the sum of elements from index i to j (exclusive). */
-int64_t fenwick_rangesum(const std::vector<int64_t> &a, size_t i, size_t j) {
-  return i < j ? fenwick_prefixsum(a, j) - fenwick_prefixsum(a, i) : 0;
-}
-
-/* Adds `v` to the value stored at index `i`. */
-void fenwick_update(std::vector<int64_t> &a, size_t i, int v) {
-  while (i < a.size()) a[i] += v, i |= i + 1;
-}
-
-/* Retrieves the value stored at index `i`. */
-int64_t fenwick_retrieve(const std::vector<int64_t> &a, size_t i) {
-  int64_t res = a[i];
-  for (size_t bit = 1; i & bit; bit += bit) res -= a[i ^ bit];
-  return res;
-}
 
 vector<vector<int>> adj;
 vector<int> begin;
