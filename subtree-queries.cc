@@ -17,6 +17,8 @@
 // values is simply a range sum query.
 //
 // Complexity: O(N + Q + Q log N) time and O(N) space.
+//
+// See also path-queries.cc for a twist on the same idea!
 
 #include <bits/stdc++.h>
 
