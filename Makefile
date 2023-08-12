@@ -8,7 +8,7 @@ GRAPH_ALGORITHM_PROBLEMS=counting-rooms labyrinth building-roads message-route b
 
 RANGE_QUERY_PROBLEMS=static-range-sum-queries static-range-minimum-queries dynamic-range-sum-queries dynamic-range-minimum-queries dynamic-range-minimum-queries-2 range-xor-queries range-update-queries forest-queries hotel-queries list-removals salary-queries salary-queries-2 prefix-sum-queries pizzeria-queries subarray-sum-queries distinct-values-queries distinct-values-queries-2 increasing-array-queries forest-queries-II range-updates-and-sums polynomial-queries range-queries-and-copies
 
-TREE_ALGORITHM_PROBLEMS=subordinates tree-matching tree-diameter tree-distances-I tree-distances-II company-queries-I company-queries-II distance-queries counting-paths subtree-queries path-queries
+TREE_ALGORITHM_PROBLEMS=subordinates tree-matching tree-diameter tree-distances-I tree-distances-II company-queries-I company-queries-II distance-queries counting-paths subtree-queries path-queries finding-a-centroid
 
 MATHEMATICS_PROBLEMS=
 

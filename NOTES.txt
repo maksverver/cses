@@ -32,6 +32,12 @@ TODO:
 
   - Add a note about 2SAT (giant-pizza.cc) to codelib2/
 
+  - finding-a-centroid.cc: find a nicer way to memoize each edge than with an unordered set?
+     - in principle the memo needs only N-1 entries instead of 2*(N-1) because
+       SubtreeSize(v, w) == N - SubtreeSize(w, v)
+     - we shouldn't need to hash anything because the edge indices can be represented as
+       integers between 0 and N-1 (exclusive).
+
   - Add a note about Eulerian tours (Hierholzer's algorithm) (mail-delivery.cc, teleporters-path.cc) to codelib2/
 
   - Min Cost Max Flow:
