@@ -20,9 +20,9 @@
 //
 // See also path-queries.cc for a twist on the same idea!
 
-#include <bits/stdc++.h>
-
 #include "fenwick.h"
+
+#include <bits/stdc++.h>
 
 using namespace std;
 

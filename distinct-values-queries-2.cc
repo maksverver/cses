@@ -7,7 +7,6 @@
 // left to right and maintain binary Fenwick array T so that at position j,
 // T[i] = 1 iff. A[i] is the last occurence of the value A[i] in A[0..j).
 //
-//
 // A = 3 1 4 1 5 9 2 6 5...
 // T = 1 0 1 1 0 1 1 1 1
 //
