@@ -12,8 +12,9 @@
 // easily with a breadth-first search (or, if stack space is not a concern, with
 // a depth-first search).
 //
-// This feels intuitive but it is not trivial to prove formally.
-// Some pointers here: https://codeforces.com/blog/entry/60440
+// This feels intuitive but it is not trivial to prove formally. For a proof,
+// see tree-diameter.txt and the discussion at:
+// https://codeforces.com/blog/entry/60440
 //
 // See also tree-diameter-2.cc for a version uses dynamic programming (DP) on
 // the tree instead. This is more complicated to implement, but easier to prove

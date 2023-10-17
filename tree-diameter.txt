@@ -1,0 +1,118 @@
+TREE DIAMETER PROOF
+
+First, some notation:
+
+  - V denotes the set of vertices in the tree
+  - abc denotes a path that goes from vertex a to b to c (in that order, but
+    possibly visiting other vertices in between)
+  - |abc| denotes the length of the path abc
+  - D = the diameter of the graph, defined as max |vw| for v, w in V
+  - far(v) = {all w in V such that |vw| is maximal}
+
+Theorem:
+
+For all u in V, for all v in far(u), for all w in far(w), |vw| = D.
+
+If this holds, then we can find the diameter by starting from an arbitrary
+vertex u, finding a vertex v farthest from u, and a vertex w farthest from v,
+and then the diameter D = |vw|.
+
+Proof:
+
+We can trivially show that:
+
+ |V| = 1 implies D = 0 (a single vertex with no edges: o)
+ |V| = 2 implies D = 1 (two vertices with a single edge between them: o-o)
+ |V| ≥ 3 implies D ≥ 2 (at least one vertex incident to two edges: o-o-o)
+
+So we will assume w.l.o.g. that |V| ≥ 3 and D ≥ 2. First, assume that D is even.
+Then we can define the middle m of a maximal path ab as the unique vertex such
+that |am| = |mb| = D/2.
+
+Lemma: all maximum paths in a tree share the same middle.
+
+Proof by contradiction: suppose there are two maximum paths amb and cnd, where
+m is the middle of ab, and n is the middle of cd, and m ≠ n, then there is a
+path of nonzero length between m and n (the graph is a tree, which is fully
+connected, ater all), so we can construct a larger path by taking mn, connecting
+m to a or b, and n to c or d, constructing a path of length greater than D.
+
+In other words, of the four possible paths: anmc, anmd, bnmc, bnmd, at least
+one must be a valid simple path, and since |an| = |bn| = |mc| = |md| = D/2
+and |nm| > 0, these paths all have length greater than D.
+
+Example:
+
+            b
+            |
+   a--o--n--m--o--d
+         |
+         c
+
+Here, |ab| = |cd| = 4, but since n ≠ m, these cannot be maximum length paths,
+and indeed we have |anmd| = 5.
+
+Note that note that not all four solutions are possible, e.g. anmc or bnmc are
+not simple paths (they cross the edge nm multiple times). But it's easy to see
+that you can always connect n to either a or b, depening on whether n lies on
+a's side of m or on b's side (and similarly with m and c or d).
+
+So now we know that the middle is a unique vertex in the tree, consider the
+tree rooted at the unique middle, m. That tree has height equal to D/2, and it
+has at least two subtrees of height D/2 - 1, which contain the endpoints of a
+maximal path passing though m. In fact, all vertices at height D/2 are valid
+starting points of maximal paths, and the maximal paths are exactly the paths
+vw where |vm| = |mw| = D/2 and v and w occur in different subtrees of m.
+
+Visualization:
+
+       m
+      / \
+     u   o
+    / \   \
+   w   o   v
+
+I'm not going to prove this formally, but it's easy to see that the maximum
+path starting from any vertex u must go up to m, and then down to a vertex v
+in far(m). By the same logic, the maximum path from v must go up to m and down
+to w in far(m), and we have |vw| = |vm| + |mw| = D/2 + D/2 = D.
+
+Finally, we must extend this reasoning to the case where D is odd. This can be
+done in two ways:
+
+  1. When D is odd, define the middle as the midpoint of an edge. Similarly,
+     we rooting the tree at m, the root is not a vertex but an edge with two
+     subtrees of equal height D - 1/2. Example:
+
+          middle
+            |
+            v
+          o---o
+         /     \
+        u       o
+       / \      |
+      w   o     v
+
+     And all the logic still works.
+
+  2. We can split each edge into two edges by inserting a dummy vertex in the
+     middle. This exactly doubles distances between original vertices,
+     guaranteeing that the diameter in the new tree is even, and we can just
+     divide that by 2 to find the diameter of the original tree.
+
+     Example:
+
+                                            a
+                                            |
+           a  (diameter 3)                  o  (diameter 6)
+           |                                |
+        b--c--d--e       becomes      b--o--c--m--d--o--e
+              |                                   |
+              f                                   o
+                                                  |
+                                                  f
+
+This proof can also be extended to trees where the edges have variable (but
+nonnegative) length.
+
+EOF
