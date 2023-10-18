@@ -27,7 +27,7 @@ int main() {
   int N = 0;
   cin >> N;
   vector<int> A(N);
-  for (auto &x : A) cin >> x;
+  for (auto &a : A) cin >> a;
 
   int answer = -1;
   cout << answer << '\n';

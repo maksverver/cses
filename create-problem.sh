@@ -25,4 +25,4 @@ fi
 cp -n template.cc "$source"
 
 # Update the section name after completing a section.
-sed -e "/^TREE_ALGORITHM_PROBLEMS=/s/$/ $name/" -i Makefile
+sed -e "/^MATHEMATICS_PROBLEMS=/s/$/ $name/" -i Makefile
