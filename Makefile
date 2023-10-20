@@ -10,7 +10,7 @@ RANGE_QUERY_PROBLEMS=static-range-sum-queries static-range-minimum-queries dynam
 
 TREE_ALGORITHM_PROBLEMS=subordinates tree-matching tree-diameter tree-diameter-2 tree-distances-I tree-distances-II company-queries-I company-queries-II distance-queries counting-paths subtree-queries path-queries distinct-colors finding-a-centroid
 
-MATHEMATICS_PROBLEMS=exponentiation exponentiation-II counting-divisors common-divisors sum-of-divisors divisor-analysis prime-multiples counting-coprime-pairs
+MATHEMATICS_PROBLEMS=exponentiation exponentiation-II counting-divisors common-divisors sum-of-divisors divisor-analysis prime-multiples counting-coprime-pairs binomial-coefficients creating-strings-II
 
 STRING_ALGORITHM_PROBLEMS=
 

@@ -1,10 +1,10 @@
-#include <bits/stdc++.h>
-
 #if __has_include("dump.h")
 #include "dump.h"
 #else
 #define DUMP(...)
 #endif
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
