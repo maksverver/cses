@@ -2,12 +2,24 @@
 
 set -e
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 <name>"
+function print_categories() {
+  sed -n 's/_PROBLEMS=.*//p' Makefile
+}
+
+if [ $# != 2 ]; then
+  echo "Usage: $0 <category> <name>"
+  echo "Categories:"
+  print_categories
   exit 1
 fi
 
-name=$1
+category=$1
+name=$2
+
+if ! grep -q "^${category}_PROBLEMS=" Makefile; then
+  echo "Invalid category! Categories:"
+  print_categories
+fi
 
 if ! echo "$name" | grep -Eq '^[a-zA-Z][a-zA-Z0-9_-]*$'
 then
@@ -25,4 +37,4 @@ fi
 cp -n template.cc "$source"
 
 # Update the section name after completing a section.
-sed -e "/^MATHEMATICS_PROBLEMS=/s/$/ $name/" -i Makefile
+sed -e "/^${category}_PROBLEMS=/s/$/ $name/" -i Makefile
