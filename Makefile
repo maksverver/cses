@@ -12,7 +12,7 @@ TREE_ALGORITHM_PROBLEMS=subordinates tree-matching tree-diameter tree-diameter-2
 
 MATHEMATICS_PROBLEMS=exponentiation exponentiation-II counting-divisors common-divisors sum-of-divisors divisor-analysis prime-multiples counting-coprime-pairs binomial-coefficients creating-strings-II distributing-apples christmas-party
 
-STRING_ALGORITHM_PROBLEMS=word-combinations string-matching
+STRING_ALGORITHM_PROBLEMS=word-combinations string-matching finding_borders
 
 GEOMETRY_PROBLEMS=
 

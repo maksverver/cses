@@ -54,4 +54,5 @@ TODO:
        need a problem to test it on!
      - Combine usages of min-cost-max-flow into a single header?
 
-  - string-matching.cc: deterministic algorithm? (e.g. KMP?)
+  - string-matching.cc: deterministic algorithm? (e.g. KMP-like?)
+  - finding-borders.cc: deterministic algorithm? (e.g. KMP?)

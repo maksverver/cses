@@ -42,7 +42,7 @@ constexpr int64_t M = 36028797018963913;
 
 int64_t Hash(string_view sv) {
   int64_t hash = 0;
-  for (char ch : sv) hash = (hash*P + (unsigned) ch) % M;
+  for (char ch : sv) hash = (hash*P + (unsigned char) ch) % M;
   return hash;
 }
 
@@ -57,9 +57,9 @@ int CountOccurrences(const string &haystack, const string &needle) {
 
   int count = hash == target;
   for (int i = needle.size(); i < haystack.size(); ++i) {
-    hash = (hash - multiplier * (unsigned) haystack[i - needle.size()]) % M;
+    hash = (hash - multiplier * (unsigned char) haystack[i - needle.size()]) % M;
     if (hash < 0) hash += M;
-    hash = (hash*P + (unsigned) haystack[i]) % M;
+    hash = (hash*P + (unsigned char) haystack[i]) % M;
     count += hash == target;
   }
   return count;
