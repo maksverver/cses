@@ -1,5 +1,5 @@
 // Minimizing Coins
-// https://cses.fi/problemset/task/1634/
+// https://cses.fi/problemset/task/1634
 //
 // f(0) = 0
 // f(x) = min f(x - c) for c in C

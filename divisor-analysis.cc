@@ -1,5 +1,5 @@
 // Divisor Analysis
-// https://cses.fi/problemset/result/7439308/
+// https://cses.fi/problemset/result/7439308
 //
 // Given a number X = product of p_i^k_i (i ≤ 1 ≤ n).
 //

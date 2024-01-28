@@ -1,5 +1,5 @@
 // Tree Diameter
-// https://cses.fi/problemset/task/1131/
+// https://cses.fi/problemset/task/1131
 //
 // The diameter of a graph is defined as the maximum length of a shortest path
 // between any pair of vertices. To calculate the diameter of a tree:

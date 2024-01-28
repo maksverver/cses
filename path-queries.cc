@@ -1,5 +1,5 @@
 // Subtree Queries
-// https://cses.fi/problemset/task/1137/
+// https://cses.fi/problemset/task/1138
 //
 // Basically the complement to subtree-queries.cc.
 //
