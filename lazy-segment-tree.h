@@ -7,22 +7,23 @@
 #include <utility>
 #include <vector>
 
-template<class V, class C>
+template<class V>
 class LazySegmentTree {
+  static const V zero;
+
 public:
   // Initialize an empty segment tree of given size.
-  LazySegmentTree(int size, V zero, C combine)
+  LazySegmentTree(int size)
       : size(size), layers(CountLayers(size)),
         data(((1 << layers) - 1), zero),
-        mutations(((1 << layers) - 1), zero),
-        zero(std::move(zero)), combine(std::move(combine)) {}
+        mutations(((1 << layers) - 1), zero) {}
 
   // Initialize a segment tree from a vector of given size.
-  template<class U> LazySegmentTree(const std::vector<U> &v, V z, C c)
-      : LazySegmentTree(v.size(), std::move(z), std::move(c)) {
+  template<class U> LazySegmentTree(const std::vector<U> &v)
+      : LazySegmentTree(v.size()) {
     int k = (1 << (layers - 1)) - 1;
     for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
-    for (int i = k - 1; i >= 0; --i) data[i] = combine(data[Child(i)], data[Child(i) + 1]);
+    for (int i = k - 1; i >= 0; --i) data[i] = data[Child(i)] + data[Child(i) + 1];
   }
 
   // Returns the value at index i.
@@ -95,8 +96,8 @@ private:
   int layers;
   mutable std::vector<V> data;
   mutable std::vector<V> mutations;
-  V zero;
-  C combine;
 };
+
+template<class V> const V LazySegmentTree<V>::zero = {};
 
 #endif  // ndef LAZY_SEGMENT_TREE

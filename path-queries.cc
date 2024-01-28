@@ -56,7 +56,7 @@ void Solve() {
 
   // Initialze segment tree so that element at index `begin[v]` contains the
   // sum of A from `v` to `0` (the root).
-  LazySegmentTree tree(N, int64_t{0}, [](int64_t x, int64_t y){ return x + y; });
+  LazySegmentTree<int64_t> tree(N);
   REP(i, N) tree.AddRange(begin[i], end[i], A[i]);
 
   // Process queries.

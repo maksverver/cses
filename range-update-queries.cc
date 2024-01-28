@@ -26,7 +26,7 @@ int main() {
   vector<int> A(N);
   for (auto &x : A) cin >> x;
 
-  LazySegmentTree tree(A, int64_t{0}, [](int64_t a, int64_t b) { return a + b; });
+  LazySegmentTree<int64_t> tree(A);
   while (Q--) {
     int type = 0;
     cin >> type;

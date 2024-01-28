@@ -82,8 +82,7 @@ int main() {
     return a.begin < b.begin;
   });
 
-  auto add = [](int64_t a, int64_t b) { return a + b; };
-  LazySegmentTree added(N, int64_t{0}, add);
+  LazySegmentTree<int64_t> added(N);
 
   vector<int> indices;
   vector<int64_t> answers(Q, -1);
