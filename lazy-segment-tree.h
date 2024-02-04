@@ -13,13 +13,13 @@ class LazySegmentTree {
 
 public:
   // Initialize an empty segment tree of given size.
-  LazySegmentTree(int size)
+  explicit LazySegmentTree(int size)
       : size(size), layers(CountLayers(size)),
         data(((1 << layers) - 1), zero),
         mutations(((1 << layers) - 1), zero) {}
 
   // Initialize a segment tree from a vector of given size.
-  template<class U> LazySegmentTree(const std::vector<U> &v)
+  template<class U> explicit LazySegmentTree(const std::vector<U> &v)
       : LazySegmentTree(v.size()) {
     int k = (1 << (layers - 1)) - 1;
     for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
@@ -49,7 +49,7 @@ public:
   }
 
 private:
-  static int Parent(int i) { return (i - 1) >> 1; }
+  static int Parent(int i) { return (i - 1) >> 1; }  // unused
   static int Child(int i) { return 2*i + 1; }
 
   static int CountLayers(int size) {

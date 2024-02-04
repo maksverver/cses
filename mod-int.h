@@ -81,7 +81,7 @@ public:
   //    i^(p-1) = 1       (mod p)
   //    i^(p-2) = p^(-1)  (mod p)
   S Inverse() const {
-    assert(Nonzero());
+    assert(IsNonzero());
     return Pow(M - 2);
   }
 
@@ -93,11 +93,11 @@ public:
   S operator*(const S &a) const { S r = *this; r *= a; return r; }
   S operator/(const S &a) const { S r = *this; r /= a; return r; }
 
-  bool Zero() const { return i == 0; }
-  bool Nonzero() const { return i != 0; }
+  bool IsZero() const { return i == 0; }
+  bool IsNonzero() const { return !IsZero(); }
   I Int() const { return i; }
 
-  explicit operator bool() { return Nonzero(); }
+  explicit operator bool() { return IsNonzero(); }
   explicit operator I() { return Int(); }
 };
 

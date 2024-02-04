@@ -12,13 +12,13 @@
 template<class V, class C>
 class SegmentTree {
 public:
-  SegmentTree(int size, V zero, C combine)
-      : size(size), layers(CountLayers(size)), data((1 << layers) - 1, zero),
-        zero(std::move(zero)), combine(std::move(combine)) {}
+  SegmentTree(int size, V zero_arg, C combine_arg)
+      : size(size), layers(CountLayers(size)), data((1 << layers) - 1, zero_arg),
+        zero(std::move(zero_arg)), combine(std::move(combine_arg)) {}
 
   // Initialize a segment tree from a vector of given size.
-  template<class U> SegmentTree(const std::vector<U> &v, V zero, C combine)
-      : SegmentTree(v.size(), std::move(zero), std::move(combine)) {
+  template<class U> SegmentTree(const std::vector<U> &v, V zero_arg, C combine_arg)
+      : SegmentTree(v.size(), std::move(zero_arg), std::move(combine_arg)) {
     int k = (1 << (layers - 1)) - 1;
     for (int i = 0; i < v.size(); ++i) data[k + i] = v[i];
     for (int i = k - 1; i >= 0; --i) data[i] = combine(data[Child(i)], data[Child(i) + 1]);
